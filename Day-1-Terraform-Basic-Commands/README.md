@@ -1,70 +1,81 @@
+# Terraform Command Basics
 
-🚀 **Day 1 of Learning Terraform** 🌍💡  
+## Step-01: Introduction
+### Understand Basic Terraform Commands
+- `terraform init` - Initialize a Terraform working directory
+- `terraform validate` - Validate the Terraform configuration files
+- `terraform plan` - Show execution plan before applying changes
+- `terraform apply` - Apply the Terraform configuration
+- `terraform destroy` - Destroy Terraform-managed infrastructure
 
-Today, I started my **Terraform journey** by exploring the basics of **Infrastructure as Code (IaC)** and deploying an **EC2 instance** on AWS! 🚀  
+## Step-02: Review Terraform Manifest for EC2 Instance
+### Pre-Conditions
+1. Ensure we have a **default VPC** in the selected AWS region
+2. Ensure the **AMI ID** you are provisioning exists in that region, update if necessary
+3. Verify your AWS Credentials in `$HOME/.aws/credentials`
 
-### **Terraform Command Basics**  
-Understanding the core Terraform commands:  
-✅ `terraform init` – Initialize Terraform  
-✅ `terraform validate` – Validate configurations  
-✅ `terraform plan` – Preview changes before applying  
-✅ `terraform apply` – Deploy resources  
-✅ `terraform destroy` – Tear down infrastructure  
-
-### **Pre-Deployment Checks**  
-Before launching an EC2 instance, I ensured:  
-🔹 A **default VPC** exists in my selected AWS region  
-🔹 The **AMI ID** is valid for the region  
-🔹 My **AWS credentials** are configured properly  
-
-### **Terraform Configuration for EC2**  
+### Terraform Configuration
+#### Terraform Settings Block
 ```hcl
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 5.0" 
     }
   }
 }
+```
 
+#### Provider Block
+```hcl
 provider "aws" {
-  region = "us-east-1"
+  profile = "default" # AWS Credentials Profile configured on our local desktop
+  region  = "us-east-1"
 }
+```
 
+#### Resource Block
+```hcl
 resource "aws_instance" "ec2demo" {
-  ami           = "ami-04d29b6f966df1537"
+  ami           = "ami-04d29b6f966df1537" # Amazon Linux in us-east-1, update as per our region
   instance_type = "t2.micro"
 }
 ```
 
-### **Terraform Workflow**  
-🚀 **Step 1:** Initialize Terraform  
+## Step-03: Terraform Core Commands
+### Initialize Terraform
 ```bash
 terraform init
 ```
-🚀 **Step 2:** Validate the configuration  
+
+### Validate Terraform Configuration
 ```bash
 terraform validate
 ```
-🚀 **Step 3:** Preview changes  
+
+### Plan Terraform Execution
 ```bash
 terraform plan
 ```
-🚀 **Step 4:** Apply and create the EC2 instance  
+
+### Apply Terraform Configuration
 ```bash
 terraform apply
 ```
-🚀 **Step 5:** Verify the instance in the AWS Console  
-✅ Navigate to **EC2 Dashboard** and confirm the instance is running  
 
-🚀 **Step 6:** Clean up resources  
+## Step-04: Verify EC2 Instance in AWS Management Console
+1. Go to **AWS Management Console**
+2. Navigate to **Services** → **EC2**
+3. Verify the newly created EC2 instance
+
+## Step-05: Destroy Infrastructure
+### Destroy EC2 Instance
 ```bash
 terraform destroy
-rm -rf .terraform* terraform.tfstate*
 ```
 
-### **What’s Next?**  
-This is just the beginning! Looking forward to exploring **Terraform modules, state management, and advanced configurations** in the coming days.  
-
-
+### Clean-Up Terraform Files
+```bash
+rm -rf .terraform*
+rm -rf terraform.tfstate*
