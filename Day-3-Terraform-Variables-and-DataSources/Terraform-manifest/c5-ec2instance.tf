@@ -14,7 +14,8 @@ resource "aws_instance" "myec2vm" {
   user_data = file("${path.module}/app1-install.sh")
   key_name = var.instance_keypair
   subnet_id     = data.aws_subnet.default.id 
-  vpc_security_group_ids = [ aws_security_group.vpc-ssh.id, aws_security_group.vpc-web.id   ]
+  associate_public_ip_address = true
+  vpc_security_group_ids = [aws_security_group.vpc-ssh.id, aws_security_group.vpc-web.id]
   tags = {
     "Name" = "EC2 Demo 2"
   }
