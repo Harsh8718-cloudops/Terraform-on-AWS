@@ -1,8 +1,3 @@
-Here's the **updated GitHub README** including:  
-- A **`variables.tf`** file to make the instance type configurable.  
-- **Output files** to match the expected Terraform outputs.  
-
----
 
 # 🚀 Terraform Utility: EC2 Instance Deployment with Availability Zone Filtering  
 
@@ -189,7 +184,8 @@ terraform apply -auto-approve
 terraform destroy -auto-approve
 
 # Remove Terraform state files
-rm -rf .terraform* terraform.tfstate*
+rm -rf .terraform* 
+rm -rf terraform.tfstate*
 ```
 
 ---
@@ -252,11 +248,4 @@ output_v3_3 = [
 ]
 
 output_v3_4 = "us-east-1a"
-```
-
----
-
-## 💬 **Let’s Discuss!**
-If you found this useful, ⭐ the repo and drop a comment! 🚀  
-
----
+`
