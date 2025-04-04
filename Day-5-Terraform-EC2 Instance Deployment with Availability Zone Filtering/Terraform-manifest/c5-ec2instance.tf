@@ -21,19 +21,15 @@ data "aws_ec2_instance_type_offerings" "my_ins_type" {
 }
 
 
-data "aws_vpc" "default" {
-  default = true
+resource "aws_vpc" "my_vpc" {
+  cidr_block = "10.1.0.0/16"
 }
 
-# Fetch the default subnet (selects the first available one)
-# Create one subnet in each Availability Zone
 resource "aws_subnet" "my_subnets" {
-  for_each = toset(data.aws_availability_zones.my_azones.names)
-
-  vpc_id            = data.aws_vpc.default.id
- 
+  for_each          = toset(data.aws_availability_zones.my_azones.names)
+  vpc_id           = aws_vpc.my_vpc.id
   availability_zone = each.key
-  cidr_block        = cidrsubnet("172.31.0.0/16", 8, index(data.aws_availability_zones.my_azones.names, each.key))
+  cidr_block       = cidrsubnet("10.1.0.0/16", 8, index(data.aws_availability_zones.my_azones.names, each.key))
 
   tags = {
     Name = "Subnet-${each.key}"
