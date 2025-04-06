@@ -186,5 +186,5 @@ terraform destroy -auto-approve
 rm -rf .terraform* terraform.tfstate*
 ```
 
----
+
 
