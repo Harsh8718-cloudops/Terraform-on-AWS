@@ -14,6 +14,7 @@ module "ec2_public" {
   subnet_id              = module.vpc.public_subnets[0]
   #vpc_security_group_ids = [module.public_bastion_sg.this_security_group_id]
   vpc_security_group_ids = [module.public_bastion_sg.security_group_id]
+  associate_public_ip_address = true
   tags = local.common_tags
 }
 
