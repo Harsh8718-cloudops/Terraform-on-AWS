@@ -12,6 +12,7 @@ module "ec2_public" {
   key_name               = var.instance_keypair
   #monitoring             = true
   subnet_id              = module.vpc.public_subnets[0]
+  associate_public_ip_address = true
   tags = local.common_tags
 
   # UPDATED
